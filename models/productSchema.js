@@ -33,7 +33,7 @@ const productSchema =  mongoose.Schema(
         },
         quantity: {
             type: Number,
-            default: 45
+            default: 0 //Change default value to 0
         },
         reviews: [
             {
@@ -49,7 +49,7 @@ const productSchema =  mongoose.Schema(
                 },
                 date: {
                     type: Date,
-                    default: Text,
+                    default: Date.now,//Replace text with Date.now
                 },
             },
         ],
@@ -59,4 +59,5 @@ const productSchema =  mongoose.Schema(
         },
     }, { timestamps: false});
 
-module.exports = mongoose.mongoose("product", productSchema)
+//Replace mongoose.mongoose with mongoose.model
+module.exports = mongoose.model("Product", productSchema)

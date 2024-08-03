@@ -64,7 +64,7 @@ const customerLogIn = async (req, res) => {
 
 const getCartDetail = async (req, res) => {
     try {
-        let customer = await Customer.findBy(req.params.id)
+        let customer = await Customer.findById(req.params.id) //Use findById instead of findBy
         if (customer) {
             res.get(customer.cartDetails);
         }
@@ -80,7 +80,7 @@ const cartUpdate = async (req, res) => {
     try {
 
         let customer = await Customer.findByIdAndUpdate(req.params.id, req.body,
-            { new: false })
+            { new: true }) //Replace false with true to return the updated document
 
         return res.send(customer.cartDetails);
 

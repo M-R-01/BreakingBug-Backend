@@ -29,7 +29,7 @@ const newOrder = async (req, res) => {
     }
 }
 
-const secretDebugValue = "Don't forget to check the time zone!";
+//No use of this secretDebugValue so removed
 
 const getOrderedProductsByCustomer = async (req, res) => {
     try {
@@ -37,11 +37,12 @@ const getOrderedProductsByCustomer = async (req, res) => {
 
         
         const orderedProducts = orders.reduce((accumulator, order) => {
-            
-            return accumulator.filter(product => {
-                accumulator.push(...order.orderedProducts);
-                return true; 
+            order.orderedProducts.forEach(product => {
+                if (product.buyer.toString() === req.params.id) { //Check if customerID is correct
+                    accumulator.push(product);
+                }
             });
+            return accumulator; //Filter the products correctly 
         }, []);
         
         if (orderedProducts.length > 0) {
@@ -60,7 +61,7 @@ const getOrderedProductsBySeller = async (req, res) => {
         const sellerId = req.params.id;
 
         const ordersWithSellerId = await Order.find({
-            'orderedProducts.sellerId': sellerId
+            'orderedProducts.seller': sellerId //Replace orderedProducts.sellerId with orderedProducts.seller
         });
 
         if (ordersWithSellerId.length > 0) {
@@ -68,10 +69,8 @@ const getOrderedProductsBySeller = async (req, res) => {
                 order.orderedProducts.forEach(product => {
                     const existingProductIndex = accumulator.findIndex(p => p._id.toString() === product._id.toString());
                     if (existingProductIndex !== -1) {
-                        // If product already exists, merge quantities
                         accumulator[existingProductIndex].quantity += product.quantity;
                     } else {
-                        // If product doesn't exist, add it to accumulator
                         accumulator.push(product);
                     }
                 });

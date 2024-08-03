@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+
 dotenv.config();
 
-// MongoDB URL
+
 const mongoURL = process.env.MONGO_URL;
+
 
 console.log(`
 IEEE CS MUJ Breaking Bug - Database set up.
@@ -12,15 +14,14 @@ Setting up the database. This might take a moment.
 Note: It worked if it ends with "Dummy data created!"
 `)
 
-// Connect to MongoDB
 mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected...');
-    createDummyData();  // Call function to create dummy data
+    createDummyData();
   })
   .catch(err => console.log(err));
 
-// Customer Schema
+
 const customerSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -101,7 +102,7 @@ const customerSchema = new mongoose.Schema({
 
 const Customer = mongoose.model("customer", customerSchema);
 
-// Order Schema
+
 const orderSchema = new mongoose.Schema({
   buyer: {
     type: mongoose.Schema.ObjectId,
@@ -220,7 +221,7 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model("order", orderSchema);
 
-// Product Schema
+
 const productSchema = new mongoose.Schema({
   productName: {
     type: String
@@ -279,7 +280,7 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model("product", productSchema);
 
-// Seller Schema
+
 const sellerSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -307,9 +308,9 @@ const sellerSchema = new mongoose.Schema({
 
 const Seller = mongoose.model("seller", sellerSchema);
 
-// Function to create dummy data
+
 async function createDummyData() {
-  // Dummy Seller
+
   const seller = new Seller({
     name: "John's Shop",
     email: "john@example.com",
@@ -318,7 +319,6 @@ async function createDummyData() {
   });
   await seller.save();
 
-  // Dummy Customer
   const customer = new Customer({
     name: "Jane Doe",
     email: "jane@example.com",
@@ -334,7 +334,6 @@ async function createDummyData() {
   });
   await customer.save();
 
-  // Dummy Product
   const product = new Product({
     productName: "Sample Product",
     price: {
@@ -342,7 +341,7 @@ async function createDummyData() {
       cost: 90,
       discountPercent: 10
     },
-    subcategory: "Sample Subcategory",
+    subcategory: 'Sample Subcategory',
     productImage: "sample.jpg",
     category: "Sample Category",
     description: "This is a sample product.",
@@ -351,7 +350,6 @@ async function createDummyData() {
   });
   await product.save();
 
-  // Dummy Order
   const order = new Order({
     buyer: customer._id,
     shippingData: customer.shippingData,

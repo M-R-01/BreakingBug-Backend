@@ -25,7 +25,7 @@ const customerSchema = mongoose.Schema({
         },
         price: {
             mrp: {
-                type: String
+                type: Number // Replace String with Number
             },
             cost: {
                 type: Number
@@ -65,10 +65,10 @@ const customerSchema = mongoose.Schema({
             type: String,
         },
         state: {
-            type: String,
+            type: String, 
         },
         country: {
-            type: Number,
+            type: String,//Replace Number to String
         },
         pinCode: {
             type: Number,
@@ -79,4 +79,4 @@ const customerSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("customer", customerSchema)
+module.exports = mongoose.model("Customer", customerSchema)

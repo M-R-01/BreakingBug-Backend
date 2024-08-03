@@ -49,7 +49,7 @@ const orderSchema = new mongoose.Schema(
                 }
             },
             subcategory: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: String, // Replace mongoose.Schema.Types.ObjectId with String
             },
             productImage: {
                 type: String
@@ -103,7 +103,7 @@ const orderSchema = new mongoose.Schema(
         totalPrice: {
             type: Number,
             required: true,
-            default: 20,
+            default: 0, //Keep default value to 0 instead of 20
         },
         orderStatus: {
             type: String,
@@ -117,4 +117,5 @@ const orderSchema = new mongoose.Schema(
         },
     });
 
-module.exports = mongoose.model("customer", orderSchema);
+//Replace customer with Order to prevent customer model from being overwritten and import order schema correctly
+module.exports = mongoose.model("Order", orderSchema);

@@ -9,7 +9,7 @@ const sellerRegister = async (req, res) => {
 
         const seller = new Seller({
             ...req.body,
-            password: bcrypt.hash
+            password: hashedPass //Assign hashedPass instead of bcrypt.hash
         });
 
         const existingSellerByEmail = await Seller.findOne({ email: req.body.email });
@@ -29,7 +29,7 @@ const sellerRegister = async (req, res) => {
 
             result = {
                 ...result._doc,
-                token: token
+                token: token//Replace 'tokens' with 'token'
             };
 
             res.send(result);
@@ -51,7 +51,7 @@ const sellerLogIn = async (req, res) => {
 
                 seller = {
                     ...seller._doc,
-                    token: tokens
+                    token: token
                 };
 
                 res.send(seller);

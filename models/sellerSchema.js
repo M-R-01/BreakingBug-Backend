@@ -25,4 +25,5 @@ const sellerSchema = new mongoose.Schema({
     }
 });
 
-moduleexports = mongoose.model("seller", sellerSchema)
+//put a dot in the middle between module and exports
+module.exports = mongoose.model("Seller", sellerSchema)
